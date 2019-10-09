@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- PAGE settings -->
+    <title>Post Page</title>
+    <meta name="description" content="Internship Coding Task - Post Page">
+    <!-- CSS dependencies -->
+    <link href="navbar.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+
+<body class="bg-light">
+<div class="container py-2">
+    <div class="row">
+        <div class="col-12">
+            <a href="/"><h2 class="text-primary">Posts</h2></a>
+            <hr>
+        </div>
+    </div>
+    <div class="row">
+        <th:block>
+            <div class="col-md-8 offset-md-2" th:if="${param.commentAdded}">
+                <div class="alert alert-success alert-dismissible">
+                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                    Komentarz został dodany
+                </div>
+            </div>
+        </th:block>
+        <div th:if="${posts.empty}" class="col-lg-8 offset-lg-2 mb-3">
+            <div class="card  border-warning">
+                <div class="card-body">
+                    <p class="card-text text-info">Nie ma żadnych postów</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-11 col-lg-10 px-3 mx-auto">
+            <div class="container">
+                <div class="row mt-2" th:each="post: ${posts}">
+                    <div class="col-md-10 offset-md-1">
+                        <div class="card">
+                            <div class="card-body">
+                                <h6 class="card-title" th:text="${post.author}">Annonymous</h6>
+                                <p class="card-text" th:text="${post.text}">Some quick example</p>
+                                <span class="">
+                                    <a href="#"><img src="https://image.flaticon.com/icons/svg/1616/1616602.svg" style="max-width: 50px"></a>
+                                    <span th:text="${clapsMap.get(post.id)}">3</span>
+                                </span>
+                                <ul class="list-group list-group-flush mt-2">
+                                    <li class="list-group-item" th:each="comment: ${post.comments}"
+                                        th:text="${comment.text}">Cras justo odio
+                                    </li>
+                                </ul>
+                                <form class="mt-2" th:action="@{/addComment(postId=${post.id})}" th:object="${commentDto}" method="post">
+                                    <div class="form-group">
+                                        <textarea id="comment" class="form-control" type="text" th:field="*{text}" placeholder="Type your comment..."></textarea>
+                                        <button type="submit" class="btn btn-sm btn-primary my-2">Add comment</button>
+                                    </div>
+                                </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
