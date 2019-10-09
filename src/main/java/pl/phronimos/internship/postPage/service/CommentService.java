@@ -11,11 +11,14 @@ import java.util.concurrent.atomic.AtomicInteger;
 @Service
 public class CommentService {
 
-    @Autowired
     private CommentRepository commentRepository;
+    private AtomicInteger commentCounter;
 
-    private AtomicInteger commentCounter = new AtomicInteger(1);
-
+    @Autowired
+    CommentService(CommentRepository commentRepository) {
+        this.commentRepository = commentRepository;
+        commentCounter = new AtomicInteger((int) commentRepository.count()+1);
+    }
     public CommentEntity createComment(String text) {
         return commentRepository.save(new CommentEntity(commentCounter.getAndIncrement(), text));
     }

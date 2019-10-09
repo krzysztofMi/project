@@ -46,8 +46,10 @@
                                 <h6 class="card-title" th:text="${post.author}">Annonymous</h6>
                                 <p class="card-text" th:text="${post.text}">Some quick example</p>
                                 <span class="">
-                                    <a href="#"><img src="https://image.flaticon.com/icons/svg/1616/1616602.svg" style="max-width: 50px"></a>
-                                    <span th:text="${clapsMap.get(post.id)}">3</span>
+                                    <form class="mt-2" th:action="@{/addClap(postId=${post.id})}" method="post">
+                                        <input type="image" src="https://image.flaticon.com/icons/svg/1616/1616602.svg" style="max-width: 50px">
+                                    </form>
+                                    <span th:text="${post.clapsNumber}"></span>
                                 </span>
                                 <ul class="list-group list-group-flush mt-2">
                                     <li class="list-group-item" th:each="comment: ${post.comments}"

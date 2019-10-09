@@ -43,4 +43,12 @@ public class MainViewController {
         postService.addCommentToPost(postId, comment);
         return "redirect:/mainView?commentAdded";
     }
+
+    @PostMapping("/addClap")
+    public String addClaps(@RequestParam int postId){
+//      Integer count = clapsMap.get(postId);
+//      clapsMap.put(postId, ++count);
+        postService.addClaps(postId);
+        return "redirect:/mainView";
+    }
 }

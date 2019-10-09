@@ -8,6 +8,9 @@ public class CommentEntity {
     @Id
     private int id;
     private String text;
+    @ManyToOne
+    private PostEntity post;
+
 
     public CommentEntity() {
     }
@@ -32,4 +35,8 @@ public class CommentEntity {
     public void setText(String text) {
         this.text = text;
     }
+
+    public PostEntity getPost() { return post;}
+
+    public void setPost(PostEntity post) { this.post = post;}
 }

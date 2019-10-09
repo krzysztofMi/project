@@ -1,22 +1,33 @@
 package pl.phronimos.internship.postPage.entity;
 
 
+import org.springframework.data.repository.cdi.Eager;
+
+import javax.persistence.*;
 import java.util.LinkedList;
 import java.util.List;
 
+@Entity
+@Table(name = "post")
 public class PostEntity {
+
+    @Id
     private int id;
     private String author;
     private String text;
+    private int clapsNumber;
+
+    @OneToMany(mappedBy = "post")
     private List<CommentEntity> comments = new LinkedList<>();
+
+    public PostEntity() {
+    }
 
     public PostEntity addComment(CommentEntity comment){
         comments.add(comment);
         return this;
     }
 
-    public PostEntity() {
-    }
 
     public PostEntity(int id, String author, String text) {
         this.id = id;
@@ -55,4 +66,10 @@ public class PostEntity {
     public void setAuthor(String author) {
         this.author = author;
     }
+
+    public int getClapsNumber() { return clapsNumber; }
+
+    public void setClapsNumber(int clapsNumber) { this.clapsNumber = clapsNumber; }
+
+    public void incremetnClaps(){this.clapsNumber++;}
 }
