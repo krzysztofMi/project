@@ -22,7 +22,7 @@ public class PostService {
     public PostService(CommentService commentService, PostRepository postRepository) {
         this.commentService = commentService;
         this.postRepository = postRepository;
-        postCounter = new AtomicInteger((int) postRepository.count());
+        postCounter = new AtomicInteger((int) postRepository.count() + 1);
 //        posts.add(createPost("Java Coder","Hey, do you know if this service the one from internship task?"));
 //        posts.get(0)
 //                .addComment(commentService.getComment(1).get())
@@ -51,8 +51,12 @@ public class PostService {
 
     public void addClaps(Integer postId){
         PostEntity post =(PostEntity) postRepository.findById(postId).orElse(null);
-        System.out.println(post.getClapsNumber());
         post.incremetnClaps();
+        postRepository.save(post);
+    }
+
+    public void addPost(PostEntity post){
+        post.setId(postCounter.getAndIncrement());
         postRepository.save(post);
     }
 }

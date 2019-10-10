@@ -21,12 +21,29 @@
             <hr>
         </div>
     </div>
+    <form class="mt-2" th:action="@{/addPost}" th:object="${newPost}" method="post">
+        <div class="form-group col-md-8 offset-md-2">
+            <textarea id="text" class="form-control" type="text" th:field="*{text}" placeholder="Type your post..."></textarea>
+        </div>
+        <div class="form-group col-md-2 offset-md-2">
+            <input class="form-control" id="author" type="text" th:field="*{author}"  placeholder="Author...">
+            <button class="btn btn-sm btn-primary my-2" type="submit">Add post</button>
+        </div>
+    </form>
     <div class="row">
         <th:block>
             <div class="col-md-8 offset-md-2" th:if="${param.commentAdded}">
                 <div class="alert alert-success alert-dismissible">
                     <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
                     Komentarz został dodany
+                </div>
+            </div>
+        </th:block>
+        <th:block>
+            <div class="col-md-8 offset-md-2" th:if="${param.postAdded}">
+                <div class="alert alert-success alert-dismissible">
+                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                    Post został dodany
                 </div>
             </div>
         </th:block>
